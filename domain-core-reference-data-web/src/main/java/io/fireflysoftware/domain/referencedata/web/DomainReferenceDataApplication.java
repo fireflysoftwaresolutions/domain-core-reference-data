@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Firefly OpenPlatform - Domain - Reference Data",
-                version = "26.10.4",
+                version = "26.10.5",
                 description = "Shared catalogs for currencies, countries, transfer types, rail schemes, account space types, and product families.",
                 contact = @Contact(name = "Firefly Software Foundation", email = "dev@fireflysoftware.io")
         )
