@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: domain-core-reference-data
+    version: 26.10.3
+
+firefly:
+  reference-data:
+    catalog:
+      adapter: ${FIREFLY_REFERENCE_DATA_ADAPTER:sandbox}
+      core-base-url: ${ENDPOINT_CORE_REFERENCE_MASTER_DATA:http://localhost:8080}
+
+server:
+  port: ${SERVER_PORT:8089}

@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Firefly OpenPlatform - Domain - Reference Data
+  version: 26.10.3
+  description: Shared catalogs. The sandbox adapter is the default.
+paths:
+  /api/v1/catalogs/{catalog}:
+    get:
+      operationId: listCatalog
+      tags:
+        - Catalogs
+      parameters:
+        - name: catalog
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Catalog entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogEntry'
+  /api/v1/catalogs/{catalog}/{code}:
+    get:
+      operationId: findCatalogEntry
+      tags:
+        - Catalogs
+      parameters:
+        - name: catalog
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: One catalog entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogEntry'
+components:
+  schemas:
+    CatalogEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        catalog:
+          type: string
+        code:
+          type: string
+        label:
+          type: string
+        status:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
