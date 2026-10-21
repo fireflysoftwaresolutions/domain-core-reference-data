@@ -24,7 +24,9 @@
     </properties>
 
     <modules>
+        <module>domain-core-reference-data-infra</module>
         <module>domain-core-reference-data-core</module>
+        <module>domain-core-reference-data-interfaces</module>
         <module>domain-core-reference-data-web</module>
         <module>domain-core-reference-data-sdk</module>
     </modules>
@@ -33,7 +35,17 @@
         <dependencies>
             <dependency>
                 <groupId>io.fireflysoftware</groupId>
+                <artifactId>domain-core-reference-data-infra</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.fireflysoftware</groupId>
                 <artifactId>domain-core-reference-data-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.fireflysoftware</groupId>
+                <artifactId>domain-core-reference-data-interfaces</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

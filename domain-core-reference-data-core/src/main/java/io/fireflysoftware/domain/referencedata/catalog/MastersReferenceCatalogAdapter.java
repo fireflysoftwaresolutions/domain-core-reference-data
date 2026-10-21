@@ -123,9 +123,7 @@ public final class MastersReferenceCatalogAdapter implements ReferenceCatalogPor
     }
 
     private static ApiClient configured(String basePath) {
-        ApiClient client = new ApiClient();
-        client.setBasePath(basePath);
-        return client;
+        return io.fireflysoftware.domain.referencedata.infra.ReferenceMasterClients.client(basePath);
     }
 
     private MastersReferenceCatalogAdapter(ApiClient client) {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.fireflysoftware</groupId>
+        <artifactId>domain-core-reference-data</artifactId>
+        <version>26.10.3</version>
+    </parent>
+    <artifactId>domain-core-reference-data-interfaces</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>io.fireflysoftware</groupId>
+            <artifactId>domain-core-reference-data-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>
