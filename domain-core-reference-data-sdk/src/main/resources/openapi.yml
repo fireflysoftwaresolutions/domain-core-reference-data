@@ -47,6 +47,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CatalogEntry'
+  /api/v1/masters/{master}:
+    get:
+      operationId: listMaster
+      tags:
+        - Masters
+      parameters:
+        - name: master
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Master rows published through the catalog port
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogEntry'
 components:
   schemas:
     CatalogEntry:
