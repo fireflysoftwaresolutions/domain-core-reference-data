@@ -33,7 +33,8 @@ Currency values stay validated three-letter strings. The master lists them. Coun
 | `RAIL_SCHEME` | `SEPA_CREDIT_TRANSFER`, `SEPA_INSTANT`, `ACH`, `FASTER_PAYMENTS`, each on `LIBRARY_RAILS` |
 | `ACCOUNT_SPACE_TYPE` | `MAIN`, `SAVINGS`, `VACATION`, `EMERGENCY`, `GOALS`, `CUSTOM` (the accounts core enum). This catalog does not open accounts. |
 | `PRODUCT_FAMILY` | `DEPOSITS`, `PAYMENTS`, `LENDING`, and `CARDS` are `REGULATED` banking families. `INSURANCE` is `NON_REGULATED`. These are family flags, not products. |
+| `DOCUMENT_TYPE` | Consulting-kit documents `report`, `proposal`, `sow`, `memo`, `minutes`, `one-pager`, `letter`, and `welcome`. Each sandbox row is English (`en`), product family `LENDING`, and regulated `true`. Attributes are `language`, `productFamily`, `regulated`, `templateCode`, and `kitKind`. A journey issues a contract with `sow` and a letter with `letter`. The kit has no notice document. These rows choose a template. They are not stored documents, products, or contracts. |
 
-Document schemes and industry schemes are not seeded here. No journey currently hardcodes those lists. Identity-document and activity-code masters remain in `core-common-reference-master-data`.
+Industry schemes are not seeded here. Identity-document and activity-code masters remain in `core-common-reference-master-data`.
 
 Business parameters, including payments clearing account identifiers, nostro, transfer routes, and `journey.lending.min-credit-score`, are on `BusinessParameterPort` in `domain-core-configuration`. `core-banking-ledger` remains the book.

@@ -34,7 +34,8 @@ import java.util.UUID;
 /**
  * Adapter an installer selects in place of {@link SandboxReferenceCatalogAdapter}.
  * It calls core-common-reference-master-data. Currencies stay three-letter codes.
- * Lookup catalogs are transfer types, rail schemes, account space types, and product families.
+ * Lookup catalogs are transfer types, rail schemes, account space types, product families,
+ * and document types.
  */
 public final class MastersReferenceCatalogAdapter implements ReferenceCatalogPort {
 

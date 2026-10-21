@@ -71,6 +71,21 @@ class SandboxReferenceCatalogAdapterTest {
                 .containsExactlyInAnyOrder("MAIN", "SAVINGS", "VACATION", "EMERGENCY", "GOALS", "CUSTOM");
         assertThat(adapter.find(CatalogCode.RAIL_SCHEME, "SEPA_CREDIT_TRANSFER").block().attributes())
                 .containsEntry("executionChannel", ExecutionChannel.LIBRARY_RAILS.name());
+
+        assertThat(adapter.list(CatalogCode.DOCUMENT_TYPE).map(CatalogEntry::code).collectList().block())
+                .containsExactlyInAnyOrder("report", "proposal", "sow", "memo", "minutes", "one-pager",
+                        "letter", "welcome");
+        CatalogEntry letter = adapter.find(CatalogCode.DOCUMENT_TYPE, "letter").block();
+        assertThat(letter.attributes())
+                .containsEntry("language", DocumentLanguage.EN.code())
+                .containsEntry("productFamily", ProductFamilyCode.LENDING.name())
+                .containsEntry("regulated", "true")
+                .containsEntry("templateCode", "letter")
+                .containsEntry("kitKind", "letter");
+        assertThat(adapter.find(CatalogCode.DOCUMENT_TYPE, "notice").block()).isNull();
+        assertThat(adapter.find(CatalogCode.DOCUMENT_TYPE, "sow").block().attributes())
+                .containsEntry("kitKind", "sow")
+                .containsEntry("templateCode", "sow");
     }
 
     @Test

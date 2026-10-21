@@ -66,7 +66,30 @@ public final class CatalogRules {
                 requireEnum(ProductFamilyCode.class, code, "Product family is not in the closed set");
                 requireEnum(Regulation.class, attributes.get("regulation"), "Product family regulation is required");
             }
+            case DOCUMENT_TYPE -> requireDocumentType(code, attributes);
             default -> throw new IllegalArgumentException("Catalog is required");
+        }
+    }
+
+    private static void requireDocumentType(String code, Map<String, String> attributes) {
+        DocumentTypeCode type = DocumentTypeCode.fromCode(code);
+        if (type == null) {
+            throw new IllegalArgumentException("Document type is not in the closed set");
+        }
+        DocumentLanguage language = DocumentLanguage.fromCode(attributes.get("language"));
+        if (language == null) {
+            throw new IllegalArgumentException("Document language is required");
+        }
+        requireEnum(ProductFamilyCode.class, attributes.get("productFamily"), "Document product family is required");
+        String regulated = attributes.get("regulated");
+        if (!"true".equals(regulated) && !"false".equals(regulated)) {
+            throw new IllegalArgumentException("Document regulated flag must be true or false");
+        }
+        if (!type.templateCode().equals(attributes.get("templateCode"))) {
+            throw new IllegalArgumentException("Document template code must match the catalog code");
+        }
+        if (!type.kitKind().equals(attributes.get("kitKind"))) {
+            throw new IllegalArgumentException("Document kit kind must match the consulting kit");
         }
     }
 

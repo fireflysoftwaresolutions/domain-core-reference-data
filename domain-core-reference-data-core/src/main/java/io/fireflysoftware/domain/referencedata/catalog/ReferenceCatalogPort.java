@@ -23,7 +23,7 @@ import java.util.UUID;
 
 /**
  * Port for shared catalogs. Banking and insurance cores read currencies, countries,
- * transfer types, rail schemes, account space types, and product families here.
+ * transfer types, rail schemes, account space types, product families, and document types here.
  *
  * <p>The default adapter is {@link SandboxReferenceCatalogAdapter}. An installer replaces
  * that adapter with {@link MastersReferenceCatalogAdapter} by setting

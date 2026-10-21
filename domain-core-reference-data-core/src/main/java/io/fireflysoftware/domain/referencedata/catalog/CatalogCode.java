@@ -19,6 +19,7 @@ package io.fireflysoftware.domain.referencedata.catalog;
 /**
  * Shared catalog published by the reference-data microservice.
  * This is not a product, party, or contract master.
+ * Document types are communication templates, not stored documents.
  */
 public enum CatalogCode {
     CURRENCY,
@@ -26,5 +27,6 @@ public enum CatalogCode {
     TRANSFER_TYPE,
     RAIL_SCHEME,
     ACCOUNT_SPACE_TYPE,
-    PRODUCT_FAMILY
+    PRODUCT_FAMILY,
+    DOCUMENT_TYPE
 }

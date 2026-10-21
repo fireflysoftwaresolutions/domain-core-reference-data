@@ -64,6 +64,15 @@ public final class SandboxCatalogDataset {
         family(rows, ProductFamilyCode.LENDING, Regulation.REGULATED, "BANKING");
         family(rows, ProductFamilyCode.CARDS, Regulation.REGULATED, "BANKING");
         family(rows, ProductFamilyCode.INSURANCE, Regulation.NON_REGULATED, "INSURANCE");
+        for (DocumentTypeCode type : DocumentTypeCode.values()) {
+            Map<String, String> attributes = new LinkedHashMap<>();
+            attributes.put("language", DocumentLanguage.EN.code());
+            attributes.put("productFamily", ProductFamilyCode.LENDING.name());
+            attributes.put("regulated", "true");
+            attributes.put("templateCode", type.templateCode());
+            attributes.put("kitKind", type.kitKind());
+            rows.add(entry(CatalogCode.DOCUMENT_TYPE, type.code(), type.label(), attributes));
+        }
         rows.forEach(CatalogRules::require);
         return List.copyOf(rows);
     }
