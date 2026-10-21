@@ -22,6 +22,7 @@ import io.fireflysoftware.domain.referencedata.sdk.invoker.ApiClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -63,7 +64,32 @@ public class ReferenceMastersApi {
                 .map(item -> toRow(masterType, item));
     }
 
+    /**
+     * Reads one catalog row from {@code GET /api/v1/catalogs/{catalog}/{code}}.
+     */
+    public Mono<CatalogRow> findCatalog(String catalog, String code) {
+        return webClient.get()
+                .uri(basePath + "/api/v1/catalogs/{catalog}/{code}", catalog, code)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(raw -> toCatalog(code, tree(raw)));
+    }
+
     public record MasterRow(String type, UUID id, String code, String name) {
+    }
+
+    public record CatalogRow(String code, Map<String, String> attributes) {
+    }
+
+    private static CatalogRow toCatalog(String requestedCode, JsonNode body) {
+        Map<String, String> attributes = new java.util.LinkedHashMap<>();
+        JsonNode source = body.path("attributes");
+        if (source.isObject()) {
+            source.fields().forEachRemaining(entry -> attributes.put(entry.getKey(), entry.getValue().asText("")));
+        }
+        String code = firstText(body, "code");
+        return new CatalogRow(code.isBlank() ? requestedCode : code, Map.copyOf(attributes));
     }
 
     private static MasterRow toRow(String type, JsonNode item) {
