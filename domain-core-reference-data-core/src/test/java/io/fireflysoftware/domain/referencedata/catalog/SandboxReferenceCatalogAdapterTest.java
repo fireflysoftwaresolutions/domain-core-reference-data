@@ -54,8 +54,9 @@ class SandboxReferenceCatalogAdapterTest {
         assertThat(domestic.attributes()).containsEntry("outboundRoute", "OUTBOUND_RAIL");
 
         CatalogEntry international = adapter.find(CatalogCode.TRANSFER_TYPE, "INTERNATIONAL").block();
-        assertThat(international.attributes()).containsEntry("executionChannel", ExecutionChannel.LIBRARY_PSPS.name());
-        assertThat(international.attributes()).containsEntry("outboundRoute", "OUTBOUND_PSP");
+        assertThat(international.attributes()).containsEntry("executionChannel", ExecutionChannel.LIBRARY_RAILS.name());
+        assertThat(international.attributes()).containsEntry("outboundRoute", "OUTBOUND_RAIL");
+        assertThat(international.attributes()).containsEntry("inboundRoute", "INBOUND_RAIL");
 
         assertThat(adapter.list(CatalogCode.CURRENCY).map(CatalogEntry::code).collectList().block())
                 .contains("EUR", "USD", "GBP")

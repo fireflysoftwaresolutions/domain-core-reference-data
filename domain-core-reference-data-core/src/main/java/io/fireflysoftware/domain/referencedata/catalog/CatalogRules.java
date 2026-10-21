@@ -74,7 +74,7 @@ public final class CatalogRules {
         ExecutionChannel expected = switch (type) {
             case INTERNAL -> ExecutionChannel.INTERNAL_BOOK;
             case DOMESTIC -> ExecutionChannel.LIBRARY_RAILS;
-            case INTERNATIONAL -> ExecutionChannel.LIBRARY_PSPS;
+            case INTERNATIONAL -> ExecutionChannel.LIBRARY_RAILS;
         };
         if (channel != expected) {
             throw new IllegalArgumentException("Transfer type " + type + " uses " + expected);

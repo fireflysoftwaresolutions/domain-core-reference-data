@@ -29,7 +29,7 @@ Currency values stay validated three-letter strings. The master lists them. Coun
 | --- | --- |
 | `CURRENCY` | `EUR`, `USD`, `GBP`, `CHF`, `JPY` |
 | `COUNTRY` | `ES`, `US`, `GB`, `DE`, `FR`, `PT`, `MX`, `BR`, `CH`, `JP` |
-| `TRANSFER_TYPE` | `INTERNAL` uses `INTERNAL_BOOK` (traspaso, including movement between account spaces). `DOMESTIC` uses `LIBRARY_RAILS` with routes `OUTBOUND_RAIL` and `INBOUND_RAIL`. `INTERNATIONAL` uses `LIBRARY_PSPS` with routes `OUTBOUND_PSP` and `INBOUND_PSP`. |
+| `TRANSFER_TYPE` | `INTERNAL` uses `INTERNAL_BOOK` (traspaso, including movement between account spaces). `DOMESTIC` and `INTERNATIONAL` use `LIBRARY_RAILS` with routes `OUTBOUND_RAIL` and `INBOUND_RAIL`. International credit transfers are rails because library-rails exposes SWIFT. A PSP route is for an instrument library-psps supports, such as a card. |
 | `RAIL_SCHEME` | `SEPA_CREDIT_TRANSFER`, `SEPA_INSTANT`, `ACH`, `FASTER_PAYMENTS`, each on `LIBRARY_RAILS` |
 | `ACCOUNT_SPACE_TYPE` | `MAIN`, `SAVINGS`, `VACATION`, `EMERGENCY`, `GOALS`, `CUSTOM` (the accounts core enum). This catalog does not open accounts. |
 | `PRODUCT_FAMILY` | `DEPOSITS`, `PAYMENTS`, `LENDING`, and `CARDS` are `REGULATED` banking families. `INSURANCE` is `NON_REGULATED`. These are family flags, not products. |

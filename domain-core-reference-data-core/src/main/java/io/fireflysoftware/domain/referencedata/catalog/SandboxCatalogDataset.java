@@ -50,8 +50,8 @@ public final class SandboxCatalogDataset {
                 "Internal book transfer (traspaso)", true);
         transfer(rows, TransferTypeCode.DOMESTIC, ExecutionChannel.LIBRARY_RAILS, "OUTBOUND_RAIL", "INBOUND_RAIL",
                 "Domestic transfer", false);
-        transfer(rows, TransferTypeCode.INTERNATIONAL, ExecutionChannel.LIBRARY_PSPS, "OUTBOUND_PSP", "INBOUND_PSP",
-                "International transfer", false);
+        transfer(rows, TransferTypeCode.INTERNATIONAL, ExecutionChannel.LIBRARY_RAILS, "OUTBOUND_RAIL", "INBOUND_RAIL",
+                "International credit transfer", false);
         for (RailSchemeCode scheme : RailSchemeCode.values()) {
             rows.add(entry(CatalogCode.RAIL_SCHEME, scheme.name(), scheme.name().replace('_', ' '),
                     Map.of("executionChannel", ExecutionChannel.LIBRARY_RAILS.name())));
