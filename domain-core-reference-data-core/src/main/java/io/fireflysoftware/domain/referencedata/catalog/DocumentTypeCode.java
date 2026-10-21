@@ -17,17 +17,15 @@
 package io.fireflysoftware.domain.referencedata.catalog;
 
 /**
- * Communication types defined by the Firefly consulting kit.
- * {@code code} is the template code a journey passes when it issues the document.
- * The kit has no notice document, so notice is not a catalog code.
+ * Contract documents OpenPlatform issues.
+ * {@code code} is the template code a journey passes to {@code DocumentPort}.
+ * The long-document, letter, and welcome layouts stay the consulting kit's.
+ * Consulting papers are not catalog codes.
  */
 public enum DocumentTypeCode {
-    REPORT("report", "report", "Report"),
-    PROPOSAL("proposal", "proposal", "Proposal"),
-    STATEMENT_OF_WORK("sow", "sow", "Statement of work"),
-    MEMO("memo", "memo", "Executive memo"),
-    MINUTES("minutes", "minutes", "Meeting minutes"),
-    ONE_PAGER("one-pager", "one-pager", "One-pager"),
+    CONTRACT("contract", "contract", "Contract"),
+    AMENDMENT("amendment", "amendment", "Amendment"),
+    RENEWAL("renewal", "renewal", "Renewal"),
     LETTER("letter", "letter", "Letter"),
     WELCOME("welcome", "welcome", "Welcome");
 
@@ -50,7 +48,7 @@ public enum DocumentTypeCode {
         return code;
     }
 
-    /** Consulting-kit kind whose structure the template follows. */
+    /** Layout family recorded on the catalog row. The template file owns the kit markup. */
     public String kitKind() {
         return kitKind;
     }

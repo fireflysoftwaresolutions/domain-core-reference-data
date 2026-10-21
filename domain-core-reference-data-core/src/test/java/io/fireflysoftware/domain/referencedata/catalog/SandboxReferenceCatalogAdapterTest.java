@@ -73,19 +73,18 @@ class SandboxReferenceCatalogAdapterTest {
                 .containsEntry("executionChannel", ExecutionChannel.LIBRARY_RAILS.name());
 
         assertThat(adapter.list(CatalogCode.DOCUMENT_TYPE).map(CatalogEntry::code).collectList().block())
-                .containsExactlyInAnyOrder("report", "proposal", "sow", "memo", "minutes", "one-pager",
-                        "letter", "welcome");
-        CatalogEntry letter = adapter.find(CatalogCode.DOCUMENT_TYPE, "letter").block();
-        assertThat(letter.attributes())
+                .containsExactlyInAnyOrder("contract", "amendment", "renewal", "letter", "welcome");
+        CatalogEntry contract = adapter.find(CatalogCode.DOCUMENT_TYPE, "contract").block();
+        assertThat(contract.attributes())
                 .containsEntry("language", DocumentLanguage.EN.code())
                 .containsEntry("productFamily", ProductFamilyCode.LENDING.name())
                 .containsEntry("regulated", "true")
-                .containsEntry("templateCode", "letter")
-                .containsEntry("kitKind", "letter");
-        assertThat(adapter.find(CatalogCode.DOCUMENT_TYPE, "notice").block()).isNull();
-        assertThat(adapter.find(CatalogCode.DOCUMENT_TYPE, "sow").block().attributes())
-                .containsEntry("kitKind", "sow")
-                .containsEntry("templateCode", "sow");
+                .containsEntry("templateCode", "contract")
+                .containsEntry("kitKind", "contract");
+        assertThat(adapter.find(CatalogCode.DOCUMENT_TYPE, "sow").block()).isNull();
+        assertThat(adapter.find(CatalogCode.DOCUMENT_TYPE, "letter").block().attributes())
+                .containsEntry("kitKind", "letter")
+                .containsEntry("templateCode", "letter");
     }
 
     @Test
