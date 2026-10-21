@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.UUID;
 
@@ -69,7 +70,9 @@ public class ReferenceMastersApi {
         String code = firstText(item, "currencyCode", "countryCode", "isoCode", "code", "alpha2Code");
         String name = firstText(item, "name", "currencyName", "countryName");
         String idText = firstText(item, "id", "currencyId", "countryId");
-        UUID id = idText.isBlank() ? UUID.randomUUID() : UUID.fromString(idText);
+        UUID id = idText.isBlank()
+                ? UUID.nameUUIDFromBytes((type + ":" + code).getBytes(StandardCharsets.UTF_8))
+                : UUID.fromString(idText);
         return new MasterRow(type, id, code, name);
     }
 
