@@ -37,6 +37,17 @@ public final class SandboxReferenceCatalogAdapter implements ReferenceCatalogPor
     }
 
     @Override
+    public Flux<CatalogEntry> listMaster(ReferenceMaster master) {
+        if (master == null) {
+            return Flux.error(new IllegalArgumentException("Master is required"));
+        }
+        if (master.catalog() == null) {
+            return Flux.empty();
+        }
+        return list(master.catalog());
+    }
+
+    @Override
     public Flux<CatalogEntry> list(CatalogCode catalog) {
         if (catalog == null) {
             return Flux.error(new IllegalArgumentException("Catalog is required"));

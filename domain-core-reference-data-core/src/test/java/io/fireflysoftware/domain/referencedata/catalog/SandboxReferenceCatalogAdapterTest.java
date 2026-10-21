@@ -34,6 +34,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -165,11 +166,25 @@ class SandboxReferenceCatalogAdapterTest {
                     .body(body.toString())
                     .build());
         }).build();
-        MastersReferenceCatalogAdapter adapter = new MastersReferenceCatalogAdapter(client, mapper);
+        MastersReferenceCatalogAdapter adapter = MastersReferenceCatalogAdapter.over(client);
         CatalogEntry created = adapter.create(new CatalogEntry(
                 null, CatalogCode.CURRENCY, "CAD", "Canadian Dollar", CatalogStatus.ACTIVE,
                 Map.of("symbol", "$", "decimalPrecision", "2"))).block();
         assertThat(created.id()).isEqualTo(id);
         assertThat(created.code()).isEqualTo("CAD");
+    }
+
+    @Test
+    void coreAdapterListsTitlesThroughTheReferenceDataSdk() {
+        AtomicReference<String> path = new AtomicReference<>();
+        WebClient client = WebClient.builder().exchangeFunction(request -> {
+            path.set(request.url().getPath());
+            return Mono.just(ClientResponse.create(HttpStatus.OK)
+                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .body("{\"content\":[],\"totalElements\":0,\"totalPages\":0,\"currentPage\":0}")
+                    .build());
+        }).build();
+        MastersReferenceCatalogAdapter.over(client).listMaster(ReferenceMaster.TITLE).collectList().block();
+        assertThat(path.get()).isEqualTo(ReferenceMaster.TITLE.listPath());
     }
 }

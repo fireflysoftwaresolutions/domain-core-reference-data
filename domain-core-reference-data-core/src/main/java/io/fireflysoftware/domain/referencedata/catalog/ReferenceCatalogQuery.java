@@ -36,6 +36,10 @@ public class ReferenceCatalogQuery {
         return catalogs.list(catalog);
     }
 
+    public Flux<CatalogEntry> listMaster(ReferenceMaster master) {
+        return catalogs.listMaster(master);
+    }
+
     public Mono<CatalogEntry> find(CatalogCode catalog, String code) {
         return catalogs.find(catalog, code);
     }

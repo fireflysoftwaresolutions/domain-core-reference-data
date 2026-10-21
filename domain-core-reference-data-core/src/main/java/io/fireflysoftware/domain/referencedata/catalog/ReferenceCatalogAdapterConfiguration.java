@@ -20,10 +20,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
-
 /**
  * Selects the sandbox adapter unless an installer sets the property to {@code core}.
+ * The core adapter calls core-common-reference-master-data-sdk.
  */
 @Configuration
 public class ReferenceCatalogAdapterConfiguration {
@@ -46,6 +45,6 @@ public class ReferenceCatalogAdapterConfiguration {
     public ReferenceCatalogPort mastersReferenceCatalogPort(
             @Value("${firefly.reference-data.catalog.core-base-url:${ENDPOINT_CORE_REFERENCE_MASTER_DATA:http://localhost:8080}}")
             String baseUrl) {
-        return new MastersReferenceCatalogAdapter(WebClient.builder().baseUrl(baseUrl).build());
+        return new MastersReferenceCatalogAdapter(baseUrl);
     }
 }

@@ -33,6 +33,12 @@ public interface ReferenceCatalogPort {
 
     Flux<CatalogEntry> list(CatalogCode catalog);
 
+    /**
+     * Reads one core master through the reference-data SDK on the live path.
+     * The sandbox returns its sample only when the master is also a shared catalog.
+     */
+    Flux<CatalogEntry> listMaster(ReferenceMaster master);
+
     Mono<CatalogEntry> find(CatalogCode catalog, String code);
 
     Mono<CatalogEntry> findById(UUID id);
