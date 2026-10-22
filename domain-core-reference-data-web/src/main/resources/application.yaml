@@ -1,7 +1,7 @@
 spring:
   application:
     name: domain-core-reference-data
-    version: 26.10.5
+    version: 26.10.6
 
 firefly:
   reference-data:

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Firefly OpenPlatform - Domain - Reference Data
-  version: 26.10.5
+  version: 26.10.6
   description: Shared catalogs. The sandbox adapter is the default.
 paths:
   /api/v1/catalogs/{catalog}:
