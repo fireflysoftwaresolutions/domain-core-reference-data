@@ -26,13 +26,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Default adapter. It returns the sandbox dataset and never opens a network connection.
- * An installer replaces this class with {@link MastersReferenceCatalogAdapter}.
+ * An installer replaces this class with {@link MastersReferenceCatalogAdapterImpl}.
  */
-public final class SandboxReferenceCatalogAdapter implements ReferenceCatalogPort {
+public final class SandboxReferenceCatalogAdapterImpl implements ReferenceCatalogPort {
 
     private final Map<UUID, CatalogEntry> byId = new ConcurrentHashMap<>();
 
-    public SandboxReferenceCatalogAdapter() {
+    public SandboxReferenceCatalogAdapterImpl() {
         SandboxCatalogDataset.entries().forEach(entry -> byId.put(entry.id(), entry));
     }
 

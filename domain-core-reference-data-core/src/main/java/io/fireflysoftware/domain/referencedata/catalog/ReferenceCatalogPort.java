@@ -25,8 +25,8 @@ import java.util.UUID;
  * Port for shared catalogs. Banking and insurance cores read currencies, countries,
  * transfer types, rail schemes, account space types, product families, and document types here.
  *
- * <p>The default adapter is {@link SandboxReferenceCatalogAdapter}. An installer replaces
- * that adapter with {@link MastersReferenceCatalogAdapter} by setting
+ * <p>The default adapter is {@link SandboxReferenceCatalogAdapterImpl}. An installer replaces
+ * that adapter with {@link MastersReferenceCatalogAdapterImpl} by setting
  * {@code firefly.reference-data.catalog.adapter=core}.
  */
 public interface ReferenceCatalogPort {

@@ -75,7 +75,7 @@ import java.util.UUID;
  * Selected with {@code firefly.reference-data.catalog.adapter=core}. Sandbox stays the default.
  * This class does not keep a second copy of the master tables.
  */
-public final class MastersReferenceCatalogAdapter implements ReferenceCatalogPort {
+public final class MastersReferenceCatalogAdapterImpl implements ReferenceCatalogPort {
 
     private static final int PAGE_SIZE = 200;
 
@@ -111,22 +111,22 @@ public final class MastersReferenceCatalogAdapter implements ReferenceCatalogPor
     private final TransactionCategoryLocalizationApi transactionCategoryLocalizations;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public MastersReferenceCatalogAdapter(String basePath) {
+    public MastersReferenceCatalogAdapterImpl(String basePath) {
         this(configured(basePath));
     }
 
     /**
      * Test constructor. The SDK sends the core's published paths through the supplied client.
      */
-    static MastersReferenceCatalogAdapter over(WebClient webClient) {
-        return new MastersReferenceCatalogAdapter(new ApiClient(webClient));
+    static MastersReferenceCatalogAdapterImpl over(WebClient webClient) {
+        return new MastersReferenceCatalogAdapterImpl(new ApiClient(webClient));
     }
 
     private static ApiClient configured(String basePath) {
         return io.fireflysoftware.domain.referencedata.infra.ReferenceMasterClients.client(basePath);
     }
 
-    private MastersReferenceCatalogAdapter(ApiClient client) {
+    private MastersReferenceCatalogAdapterImpl(ApiClient client) {
         this.currencies = new CurrenciesApi(client);
         this.countries = new CountriesApi(client);
         this.domains = new LookupDomainsApi(client);

@@ -42,7 +42,7 @@ class SandboxReferenceCatalogAdapterTest {
 
     @Test
     void sandboxCoversTransfersCurrenciesFamiliesAndAccountSpaces() {
-        SandboxReferenceCatalogAdapter adapter = new SandboxReferenceCatalogAdapter();
+        SandboxReferenceCatalogAdapterImpl adapter = new SandboxReferenceCatalogAdapterImpl();
 
         CatalogEntry internal = adapter.find(CatalogCode.TRANSFER_TYPE, "INTERNAL").block();
         assertThat(internal.attributes()).containsEntry("executionChannel", ExecutionChannel.INTERNAL_BOOK.name());
@@ -90,7 +90,7 @@ class SandboxReferenceCatalogAdapterTest {
 
     @Test
     void createCompensatesByDeleteAndStatusRestores() {
-        SandboxReferenceCatalogAdapter adapter = new SandboxReferenceCatalogAdapter();
+        SandboxReferenceCatalogAdapterImpl adapter = new SandboxReferenceCatalogAdapterImpl();
         CreateCatalogEntrySaga create = new CreateCatalogEntrySaga(adapter);
         ExecutionContext ctx = ExecutionContext.forSaga("CreateCatalogEntrySaga", "test");
         CatalogEntry draft = new CatalogEntry(null, CatalogCode.CURRENCY, "CAD", "Canadian Dollar",
@@ -112,7 +112,7 @@ class SandboxReferenceCatalogAdapterTest {
 
     @Test
     void updateAndRemoveCompensate() {
-        SandboxReferenceCatalogAdapter adapter = new SandboxReferenceCatalogAdapter();
+        SandboxReferenceCatalogAdapterImpl adapter = new SandboxReferenceCatalogAdapterImpl();
         UUID id = adapter.find(CatalogCode.COUNTRY, "ES").block().id();
         UpdateCatalogEntrySaga update = new UpdateCatalogEntrySaga(adapter);
         ExecutionContext ctx = ExecutionContext.forSaga("UpdateCatalogEntrySaga", "test");
@@ -134,18 +134,18 @@ class SandboxReferenceCatalogAdapterTest {
 
     @Test
     void queryIsADirectReadAndSandboxIsTheDefaultAdapter() {
-        SandboxReferenceCatalogAdapter adapter = new SandboxReferenceCatalogAdapter();
+        SandboxReferenceCatalogAdapterImpl adapter = new SandboxReferenceCatalogAdapterImpl();
         assertThat(new ReferenceCatalogQuery(adapter).find(CatalogCode.CURRENCY, "JPY").block().code()).isEqualTo("JPY");
 
         new ApplicationContextRunner()
                 .withUserConfiguration(ReferenceCatalogAdapterConfiguration.class)
                 .run(context -> assertThat(context.getBean(ReferenceCatalogPort.class))
-                        .isInstanceOf(SandboxReferenceCatalogAdapter.class));
+                        .isInstanceOf(SandboxReferenceCatalogAdapterImpl.class));
         new ApplicationContextRunner()
                 .withUserConfiguration(ReferenceCatalogAdapterConfiguration.class)
                 .withPropertyValues("firefly.reference-data.catalog.adapter=core")
                 .run(context -> assertThat(context.getBean(ReferenceCatalogPort.class))
-                        .isInstanceOf(MastersReferenceCatalogAdapter.class));
+                        .isInstanceOf(MastersReferenceCatalogAdapterImpl.class));
     }
 
     @Test
@@ -166,7 +166,7 @@ class SandboxReferenceCatalogAdapterTest {
                     .body(body.toString())
                     .build());
         }).build();
-        MastersReferenceCatalogAdapter adapter = MastersReferenceCatalogAdapter.over(client);
+        MastersReferenceCatalogAdapterImpl adapter = MastersReferenceCatalogAdapterImpl.over(client);
         CatalogEntry created = adapter.create(new CatalogEntry(
                 null, CatalogCode.CURRENCY, "CAD", "Canadian Dollar", CatalogStatus.ACTIVE,
                 Map.of("symbol", "$", "decimalPrecision", "2"))).block();
@@ -184,7 +184,7 @@ class SandboxReferenceCatalogAdapterTest {
                     .body("{\"content\":[],\"totalElements\":0,\"totalPages\":0,\"currentPage\":0}")
                     .build());
         }).build();
-        MastersReferenceCatalogAdapter.over(client).listMaster(ReferenceMaster.TITLE).collectList().block();
+        MastersReferenceCatalogAdapterImpl.over(client).listMaster(ReferenceMaster.TITLE).collectList().block();
         assertThat(path.get()).isEqualTo(ReferenceMaster.TITLE.listPath());
     }
 }
