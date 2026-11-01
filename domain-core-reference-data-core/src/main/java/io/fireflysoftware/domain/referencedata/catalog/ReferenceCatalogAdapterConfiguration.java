@@ -34,7 +34,7 @@ public class ReferenceCatalogAdapterConfiguration {
             havingValue = "sandbox",
             matchIfMissing = true)
     public ReferenceCatalogPort sandboxReferenceCatalogPort() {
-        return new SandboxReferenceCatalogAdapter();
+        return new SandboxReferenceCatalogAdapterImpl();
     }
 
     @Bean
@@ -45,6 +45,6 @@ public class ReferenceCatalogAdapterConfiguration {
     public ReferenceCatalogPort mastersReferenceCatalogPort(
             @Value("${firefly.reference-data.catalog.core-base-url:${ENDPOINT_CORE_REFERENCE_MASTER_DATA:http://localhost:8080}}")
             String baseUrl) {
-        return new MastersReferenceCatalogAdapter(baseUrl);
+        return new MastersReferenceCatalogAdapterImpl(baseUrl);
     }
 }
